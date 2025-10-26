@@ -11,14 +11,11 @@ const list = async () => {
 
   try {
     const files = await readdir(FOLDER_PATH);
-    const filesAmount = files.length;
-
-    stdout.write('[');
-    for (let i = 0; i < filesAmount; i += 1) {
-      stdout.write(`${files[i]}`);
-      if (i + 1 !== filesAmount) stdout.write(', ');
-    }
-    stdout.write('] \n');
+    const outputStr = Array.from(files)
+      .map((fileName) => fileName)
+      .join('; ');
+    stdout.write(`[${outputStr}]`);
+    stdout.write('\n');
   } catch (err) {
     if (err.code === 'ENOENT') {
       throw new Error('FS operation failed');
